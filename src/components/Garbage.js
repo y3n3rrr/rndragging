@@ -14,9 +14,16 @@ class Garbage extends Component {
           opacity: new Animated.Value(5)
         };
       }
-
+      componentDidMount(){
+        this.state.dropAreaValues=this.props.dropAreaValues
+      }
+      shouldComponentUpdate(nextProps, nextState){
+        this.state.dropAreaValues=nextProps.dropAreaValues;
+      }
       componentWillMount() {
         this._val = { x:0, y:0 }
+        
+        
         this.state.pan.addListener((value) => this._val = value);
     
         this.panResponder = PanResponder.create({
@@ -30,9 +37,9 @@ class Garbage extends Component {
             },
             onPanResponderMove: Animated.event([ null, { dx: this.state.pan.x, dy: this.state.pan.y } ]),
             onPanResponderRelease: (e, gesture) => {
-                alert("movex:" + gesture.moveX
-            + "\nmovey:" + gesture.moveY)
-              if (this.isDropArea(gesture)) {
+            //     alert("movex:" + gesture.moveX
+            // + "\nmovey:" + gesture.moveY)
+              if (this.isDropZone(gesture)) {
                 Animated.timing(this.state.opacity, {
                   toValue: 0,
                   duration: 1000
@@ -50,15 +57,17 @@ class Garbage extends Component {
         return gesture.moveY < 200;
       }
 
-      
+      isDropZone(gesture){  
+        var dz1 = this.state.dropAreaValues;
+        // alert("px:" + dz1.px
+        // + "\npy:" + dz1.py)
+        return (gesture.moveY > dz1.py && gesture.moveX > dz1.px)
+      }
     render() {
         return (
             <View style={{ width: "20%", alignItems: "center" }}>
             {this.renderDraggable()}
           </View>
-            // <View style={styles.container}>
-            //     <Image style={styles.vodkaImage} source={require('../assets/img/vodka.png')} />
-            // </View>
         );
     }
     renderDraggable() {
@@ -67,7 +76,7 @@ class Garbage extends Component {
         }
         if (this.state.showDraggable) {
           return (
-            <View style={{ position: "absolute" }}>
+            <View style={styles.container}>
             <Animated.Image style={[panStyle, styles.vodkaImage, {opacity:this.state.opacity}]}
             {...this.panResponder.panHandlers} 
             source={require('../assets/img/vodka.png')}>
@@ -82,12 +91,15 @@ class Garbage extends Component {
 // define your styles
 const styles = StyleSheet.create({
     container: {
+      position:"absolute",
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#2c3e50',
+        
+        
     },
     vodkaImage:{
         width:25,
+        position:"absolute",
         height:55
     }
 });
