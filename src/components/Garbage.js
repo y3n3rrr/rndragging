@@ -1,12 +1,11 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image,PanResponder, Animated } from 'react-native';
-
 // create a component
 class Garbage extends Component {
     constructor(props) {
         super(props);
-    
+        this.imageUrl=this.props.imageUrl;
         this.state = {
           showDraggable: true,
           dropAreaValues: null,
@@ -14,18 +13,12 @@ class Garbage extends Component {
           opacity: new Animated.Value(5)
         };
       }
-      componentDidMount(){
-        this.state.dropAreaValues=this.props.dropAreaValues
-      }
       shouldComponentUpdate(nextProps, nextState){
         this.state.dropAreaValues=nextProps.dropAreaValues;
       }
       componentWillMount() {
         this._val = { x:0, y:0 }
-        
-        
         this.state.pan.addListener((value) => this._val = value);
-    
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: (e, gesture) => true,
             onPanResponderGrant: (e, gesture) => {
@@ -44,12 +37,20 @@ class Garbage extends Component {
                   toValue: 0,
                   duration: 1000
                 }).start(() =>{
-                  this.props.playsound();
+                  this.props.playApplause();
                   this.setState({
                     showDraggable: false
                   })
-                }
-                );
+                });
+              }
+              else{
+                Animated.spring(            
+                  this.state.pan,         
+                  {toValue:{x:0,y:0}} 
+              ).start(() =>{
+                this.props.playBoo();
+              });
+      
               } 
             }
           })
@@ -73,15 +74,16 @@ class Garbage extends Component {
         );
     }
     renderDraggable() {
+
         const panStyle = {
           transform: this.state.pan.getTranslateTransform()
         }
         if (this.state.showDraggable) {
           return (
             <View style={styles.container}>
-            <Animated.Image style={[panStyle, styles.vodkaImage, {opacity:this.state.opacity}]}
+            <Animated.Image style={[panStyle, styles[this.props.Name], {opacity:this.state.opacity}]}
             {...this.panResponder.panHandlers} 
-            source={require('../assets/img/vodka.png')}>
+            source={this.imageUrl}>
        </Animated.Image>
             
             </View>
@@ -93,17 +95,20 @@ class Garbage extends Component {
 // define your styles
 const styles = StyleSheet.create({
     container: {
-      position:"absolute",
+      position:"relative",
         justifyContent: 'center',
         alignItems: 'center',
         
         
     },
-    vodkaImage:{
+    Vodka:{
         width:25,
-        position:"absolute",
         height:55
-    }
+    },
+    Wine:{
+      width:100,
+      height:55
+  },
 });
 
 //make this component available to the app

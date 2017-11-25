@@ -28,11 +28,13 @@ export class locationInfo {
   py;
 }
 
-
-const url = 'http://www.noiseaddicts.com/free-samples-mp3/?id=4279'; 
-
 var Sound = require('react-native-sound');
-
+const images = {
+  garbage: {
+      vodka: require("./src/assets/img/vodka.png"),
+      wine: require('./src/assets/img/wine.png'),
+  }
+};
 export default class App extends Component {
   constructor(props){
     super(props)
@@ -41,8 +43,17 @@ export default class App extends Component {
     };
   }
 
-  playTrack = () => {
-    const track = new Sound('imars.mp3', null, (e) => {
+  playApplause = () => {
+    const track = new Sound('applause.mp3', null, (e) => {
+      if (e) {
+        console.log('error loading track:', e)
+      } else {
+        track.play()
+      }
+    })
+  }
+  playBoo = () => {
+    const track = new Sound('boo.mp3', null, (e) => {
       if (e) {
         console.log('error loading track:', e)
       } else {
@@ -73,10 +84,10 @@ export default class App extends Component {
   render() {
     return (
       <ImageBackground style={styles.container} imageStyle={{resizeMode:'cover'}} source={require('./src/assets/img/garden1.jpg')}>
-      <Button title="play me" onPress={this.playTrack} />
       <View style={styles.garbegecontainer}>
       <View style={styles.vodkacontainer}>
-        <Garbage playsound={this.playTrack} dropAreaValues={this.state.dropAreaValues}/>
+      <Garbage Name="Wine" imageUrl={images.garbage.wine} playApplause={this.playApplause} playBoo={this.playBoo} dropAreaValues={this.state.dropAreaValues}/>
+        <Garbage Name="Vodka" imageUrl={images.garbage.vodka} playApplause={this.playApplause} playBoo={this.playBoo} dropAreaValues={this.state.dropAreaValues}/>
         </View>
         </View>
       <View style={styles.trashcontainer}>
