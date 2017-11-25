@@ -12,6 +12,7 @@ import {
   View,
   ImageBackground,
   Image,
+  Button ,
   PanResponder, Animated,  Dimensions
 } from 'react-native';
 
@@ -27,6 +28,11 @@ export class locationInfo {
   py;
 }
 
+
+const url = 'http://www.noiseaddicts.com/free-samples-mp3/?id=4279'; 
+
+var Sound = require('react-native-sound');
+
 export default class App extends Component {
   constructor(props){
     super(props)
@@ -34,7 +40,21 @@ export default class App extends Component {
       dropAreaValues: new locationInfo
     };
   }
-  setDropZoneValues(event){    
+
+  playTrack = () => {
+    const track = new Sound('imars.mp3', null, (e) => {
+      if (e) {
+        console.log('error loading track:', e)
+      } else {
+        track.play()
+      }
+    })
+  }
+  componentDidMount(){
+    
+    
+  }
+  setDropZoneValues(event){
     this.refs.mycomponent.measure( (fx, fy, width, height, px, py) => {
       console.log('Component width is: ' + width)
       console.log('Component height is: ' + height)
@@ -53,9 +73,10 @@ export default class App extends Component {
   render() {
     return (
       <ImageBackground style={styles.container} imageStyle={{resizeMode:'cover'}} source={require('./src/assets/img/garden1.jpg')}>
+      <Button title="play me" onPress={this.playTrack} />
       <View style={styles.garbegecontainer}>
       <View style={styles.vodkacontainer}>
-        <Garbage dropAreaValues={this.state.dropAreaValues}/>
+        <Garbage playsound={this.playTrack} dropAreaValues={this.state.dropAreaValues}/>
         </View>
         </View>
       <View style={styles.trashcontainer}>

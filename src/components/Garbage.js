@@ -43,10 +43,12 @@ class Garbage extends Component {
                 Animated.timing(this.state.opacity, {
                   toValue: 0,
                   duration: 1000
-                }).start(() =>
+                }).start(() =>{
+                  this.props.playsound();
                   this.setState({
                     showDraggable: false
                   })
+                }
                 );
               } 
             }
