@@ -132,8 +132,6 @@ const styles = StyleSheet.create({
   trash: {
     width: 75,
     resizeMode:'cover',
-    backgroundColor:'yellow',
-    backgroundColor: 'black',
     
     height: 75
   }
