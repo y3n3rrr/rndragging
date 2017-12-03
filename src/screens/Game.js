@@ -8,11 +8,14 @@ import {
     ImageBackground,
     Image,
     Button ,
-    PanResponder, Animated,  Dimensions
+    PanResponder, Animated,  Dimensions,
+    Alert,
+    BackHandler
 } from 'react-native';
 
 
-import {Garbage} from '../components/Garbage' 
+import {Garbage} from '../components/Garbage'
+//import Garbage from '../components/Garbage' 
 
 export class locationInfo {
   width;
@@ -56,10 +59,13 @@ class Game extends Component {
       }
     })
   }
-  componentDidMount(){
-    
-    
+  
+
+  shouldComponentUpdate(nextProps, nextState){
+    var asd = this.props.navigation.state.params;
+    return true;
   }
+
   setDropZoneValues(event){
     this.refs.mycomponent.measure( (fx, fy, width, height, px, py) => {
       console.log('Component width is: ' + width)
@@ -73,9 +79,22 @@ class Game extends Component {
       });
 
   })
-      
     }
- 
+    
+    Restart = ()=>{
+      this.props.navigation.navigate('HomePage',{refresh:true})
+    }
+    Quit = ()=>{
+      Alert.alert(
+        'Uygulamadan cikiliyor',
+        'Tekrar gorusmek uzere..',
+        [
+          {text: 'OK', onPress: () => BackHandler.exitApp()},
+        ]
+    );
+    }
+  
+
   render() {
     return (
       <ImageBackground style={styles.container} imageStyle={{resizeMode:'cover'}} source={require('../assets/img/garden1.jpg')}>
@@ -91,6 +110,17 @@ class Game extends Component {
           <Image style={styles.trash} source={require('../assets/img/trash.png')} />
         </View>
         </View>
+     
+        <Button
+                    title="Restart Game"
+                    color="#841584"
+                    accessibilityLabel="Restart Game"
+                    onPress={()=>this.Restart()} />
+      <Button
+                    title="Exit"
+                    color="#708090"
+                    accessibilityLabel="Exit Game"
+                    onPress={()=>this.Quit()} />
       </ImageBackground>
     );
   }

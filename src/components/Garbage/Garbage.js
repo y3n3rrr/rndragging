@@ -15,6 +15,7 @@ class Garbage extends Component {
       }
       shouldComponentUpdate(nextProps, nextState){
         this.state.dropAreaValues=nextProps.dropAreaValues;
+        return true;
       }
       componentWillMount() {
         this._val = { x:0, y:0 }

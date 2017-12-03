@@ -9,7 +9,7 @@ const DrawerButton = ({onPress})=>{
          onPress={onPress}
          style={styles.drawerContainer}
         >
-        <Icon name="md-menu" style={{paddingLeft:15}} size={25}  />
+            <Icon name="md-menu" style={{paddingLeft:15}} size={25}  />
         </TouchableOpacity>
     )
 }
