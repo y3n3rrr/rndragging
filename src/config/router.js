@@ -4,6 +4,7 @@ import {StackNavigator, DrawerNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Home from '../screens/Home'
 import Game from '../screens/Game'
+import CardsScreen from '../screens/CardsScreen'
 
 import {DrawerButton} from '../components/Header'
 
@@ -17,6 +18,12 @@ export const HomePage = StackNavigator({
     },
     GameScreen:{
         screen:Game,
+        navigationOptions:(props)=>({
+            title:'Oyun Basladi..'
+        })
+    },
+    CardScreen:{
+        screen:CardsScreen,
         navigationOptions:(props)=>({
             title:'Oyun Basladi..'
         })
@@ -35,6 +42,13 @@ export const Drawers = DrawerNavigator({
         screen:Game,
         navigationOptions:{
             drawerLabel:'Temizlik Oyunu',
+            drawerIcon:({tintColor})=><Icon name='ios-add' size={25} color={tintColor} />
+        }
+    },
+    CardsPage:{
+        screen:CardsScreen,
+        navigationOptions:{
+            drawerLabel:'Cards Game',
             drawerIcon:({tintColor})=><Icon name='ios-add' size={25} color={tintColor} />
         }
     },
