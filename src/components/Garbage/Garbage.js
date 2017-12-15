@@ -10,7 +10,8 @@ class Garbage extends Component {
           showDraggable: true,
           dropAreaValues: null,
           pan: new Animated.ValueXY(),
-          opacity: new Animated.Value(5)
+          opacity: new Animated.Value(5),
+          birdUrl:require('../../assets/img/bird1.gif')
         };
       }
       shouldComponentUpdate(nextProps, nextState){
@@ -18,10 +19,16 @@ class Garbage extends Component {
         return true;
       }
       componentWillMount() {
+        let panMover = Animated.event([ null, { dx: this.state.pan.x, dy: this.state.pan.y } ])
+        
         this._val = { x:0, y:0 }
         this.state.pan.addListener((value) => this._val = value);
         this.panResponder = PanResponder.create({
-            onStartShouldSetPanResponder: (e, gesture) => true,
+          onStartShouldSetPanResponder: (evt, gestureState) => true,
+          onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+          onMoveShouldSetPanResponder: (evt, gestureState) => true,
+          onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+    
             onPanResponderGrant: (e, gesture) => {
               this.state.pan.setOffset({
                 x: this._val.x,
@@ -29,7 +36,15 @@ class Garbage extends Component {
               })
               this.state.pan.setValue({ x:0, y:0 })
             },
-            onPanResponderMove: Animated.event([ null, { dx: this.state.pan.x, dy: this.state.pan.y } ]),
+            onPanResponderMove: (e, gesture) => {
+              if( this._val.x >100 ) {
+                this.setState({birdUrl:require('../../assets/img/bird2.gif')});
+              }
+              else{
+                this.setState({birdUrl:require('../../assets/img/bird1.gif')});
+              }
+              return panMover(e, gesture);
+            },
             onPanResponderRelease: (e, gesture) => {
             //     alert("movex:" + gesture.moveX
             // + "\nmovey:" + gesture.moveY)
@@ -45,6 +60,7 @@ class Garbage extends Component {
                 });
               }
               else{
+                
                 Animated.spring(            
                   this.state.pan,         
                   {toValue:{x:0,y:0}} 
@@ -103,7 +119,7 @@ const styles = StyleSheet.create({
         
     },
     Vodka:{
-        width:25,
+        width:55,
         height:55
     },
     Wine:{

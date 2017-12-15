@@ -119,7 +119,7 @@ class CarCrush extends Component {
             && this.state.playerSide == this.state.stoneSide){
                 clearInterval(refreshInterfalId);
                 this.setState({gameOver:true});
-                this.gameOver();
+                //this.gameOver();
             }
         },50)
 
@@ -137,7 +137,7 @@ class CarCrush extends Component {
             if(event.finished && this.state.gameOver==false){
                 clearInterval(refreshInterfalId);
                 this.setState({points:++this.state.points})
-                this.animateStone()
+                //this.animateStone()
             }
 
         })

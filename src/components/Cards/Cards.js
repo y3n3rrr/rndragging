@@ -12,8 +12,9 @@ class Card extends React.Component {
 
  render() {
    return (
-     <View style={[styles.card, {backgroundColor: this.props.backgroundColor}]}>
-       <Text>{this.props.text}</Text>
+     <View style={[styles.card]}>
+       {/* <Text>{this.props.text}</Text> */}
+       <Image style={styles.fruitImage} source={this.props.imgUrl} />
      </View>
    )
  }
@@ -27,7 +28,7 @@ class NoMoreCards extends Component {
  render() {
    return (
      <View>
-       <Text style={styles.noMoreCardsText}>Başka meyve yok..</Text>
+       <Text style={styles.noMoreCardsText}>Başka resim yok..</Text>
      </View>
    )
  }
@@ -38,12 +39,12 @@ export default class extends React.Component {
    super(props);
    this.state = {
      cards: [
-       {text: 'Domates', backgroundColor: 'red'},
-       {text: 'Turp', backgroundColor: 'purple'},
-       {text: 'Maydonoz', backgroundColor: 'green'},
-       {text: 'Böğürtlen', backgroundColor: 'blue'},
-       {text: 'Ot', backgroundColor: 'cyan'},
-       {text: 'Portakal', backgroundColor: 'orange'},
+       {text: 'Maydonoz', backgroundColor: 'green', imgUrl:require('../../assets/img/fruits/blackberry.png')},
+       {text: 'Böğürtlen', backgroundColor: 'blue', imgUrl:require('../../assets/img/fruits/cherry.png')},
+       {text: 'Portakal', backgroundColor: 'orange', imgUrl:require('../../assets/img/fruits/strawberry.png')},
+       {text: 'Portakal', backgroundColor: 'orange', imgUrl:require('../../assets/img/fruits/tomato.png')},
+       {text: 'Portakal', backgroundColor: 'orange', imgUrl:require('../../assets/img/fruits/fig.png')},
+       {text: 'Portakal', backgroundColor: 'orange', imgUrl:require('../../assets/img/fruits/banana.png')}
      ]
    };
  }
@@ -84,5 +85,11 @@ const styles = StyleSheet.create({
  },
  noMoreCardsText: {
    fontSize: 22,
+ },
+ fruitImage:{
+   width:300,
+   height:300,
+   position:'absolute',
+   resizeMode:'cover'
  }
 })

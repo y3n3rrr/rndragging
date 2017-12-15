@@ -29,7 +29,7 @@ export class locationInfo {
 var Sound = require('react-native-sound');
 const images = {
   garbage: {
-      vodka: require("../assets/img/vodka.png"),
+      vodka: require("../assets/img/bird1.gif"),
       wine: require('../assets/img/wine.png'),
   }
 };
