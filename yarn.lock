@@ -3304,6 +3304,14 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-play-audio@^0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-play-audio/-/react-native-play-audio-0.1.1.tgz#ba5b1ee38d83c40774c4e6efb4a0407c90a07d31"
+
+react-native-sound@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/react-native-sound/-/react-native-sound-0.10.4.tgz#242286558f457e023dbed42e8c6cbe52cfd313d4"
+
 react-native@0.50.3:
   version "0.50.3"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.50.3.tgz#91282bd5356cc7d794969cdc443cc764389b9af4"
